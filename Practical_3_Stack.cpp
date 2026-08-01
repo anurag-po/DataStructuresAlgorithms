@@ -1,3 +1,5 @@
+// Write a program to implement stack using array. Demonstrate the following operations on stack: push( ), pop( ), peek( ) and display( )
+
 #include <iostream>
 using namespace std;
 
