@@ -49,7 +49,7 @@ public:
 
     void display() {
         if (isEmpty()) {
-            cout << "Queue is Empty" << endl;
+            cout << "Queue is Empty\n" << endl;
             return;
         }
         int i = front;
