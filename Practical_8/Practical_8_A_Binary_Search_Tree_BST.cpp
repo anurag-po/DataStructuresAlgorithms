@@ -1,50 +1,96 @@
 #include <iostream>
 using namespace std;
 
-struct Node {
+class Node {
+public:
     int data;
     Node *left, *right;
-    Node(int x) : data(x), left(0), right(0) {}
+
+    Node(int x) {
+        data = x;
+        left = 0;
+        right = 0;
+    }
 };
 
-Node* insert(Node* root, int x) {
-    if (!root) return new Node(x);
-    if (x < root->data) root->left = insert(root->left, x);
-    else root->right = insert(root->right, x);
-    return root;
-}
+class BST {
+private:
+    Node* root;
 
-void preorder(Node* root) {
-    if (root) {
-        cout << root->data << " ";
-        preorder(root->left);
-        preorder(root->right);
-    }
-}
+    Node* insert(Node* root, int x) {
+        if (!root)
+            return new Node(x);
 
-void inorder(Node* root) {
-    if (root) {
-        inorder(root->left);
-        cout << root->data << " ";
-        inorder(root->right);
-    }
-}
+        if (x < root->data)
+            root->left = insert(root->left, x);
+        else
+            root->right = insert(root->right, x);
 
-void postorder(Node* root) {
-    if (root) {
-        postorder(root->left);
-        postorder(root->right);
-        cout << root->data << " ";
+        return root;
     }
-}
+
+    void preorder(Node* root) {
+        if (root) {
+            cout << root->data << " ";
+            preorder(root->left);
+            preorder(root->right);
+        }
+    }
+
+    void inorder(Node* root) {
+        if (root) {
+            inorder(root->left);
+            cout << root->data << " ";
+            inorder(root->right);
+        }
+    }
+
+    void postorder(Node* root) {
+        if (root) {
+            postorder(root->left);
+            postorder(root->right);
+            cout << root->data << " ";
+        }
+    }
+
+public:
+    BST() {
+        root = 0;
+    }
+
+    void insert(int x) {
+        root = insert(root, x);
+    }
+
+    void preorder() {
+        preorder(root);
+    }
+
+    void inorder() {
+        inorder(root);
+    }
+
+    void postorder() {
+        postorder(root);
+    }
+};
 
 int main() {
-    Node* root = 0;
+    BST tree;
+
     int values[] = {50, 30, 70, 20, 40, 60, 80};
 
-    for (int x : values) root = insert(root, x);
+    for (int x : values)
+        tree.insert(x);
 
-    cout << "Preorder: "; preorder(root);
-    cout << "\nInorder: "; inorder(root);
-    cout << "\nPostorder: "; postorder(root);
+    cout << "Preorder: ";
+    tree.preorder();
+
+    cout << "\nInorder: ";
+    tree.inorder();
+
+    cout << "\nPostorder: ";
+    tree.postorder();
+
+    return 0;
 }
